@@ -8,8 +8,6 @@ Console.WriteLine("Hello, World!");
 
 int[] numbers = { 11, 2, 13, 44, -5, 6, 127, -99, 0, 256 };
 
-
-
 //  Where - FILTRACE
 //var result = numbers.Where(n => n > 0 && n <= 99);
 
@@ -30,14 +28,43 @@ int[] numbers = { 11, 2, 13, 44, -5, 6, 127, -99, 0, 256 };
 //var result = numbers.TakeWhile(n => n > 1000);
 
 //  SELECT + transformace
-var result = numbers.Select(n => Math.Abs(n));
+//var result = numbers.Select(n => Math.Abs(n));
+
+
+
+//  *********************************************************************************
+//  CVICENI
+//  *********************************************************************************
+
+//  1. Zjistit pocet kladnych hodnot v numbers
+//var result = numbers.Where(x => x > 0).Count();
+
+
+
+
+//  2. Ignorujte nejvetsi a nejmensi cislo a spocitejte prumer
+//var result = numbers.OrderBy(n => n).Skip(1).SkipLast(1).Average();
+
+
+
+
+//  3.  Spocitat pocet lichych a sudych
+
+//var countEven = numbers.Where(c => c % 2 != 0).Count();
+//var countOdd = numbers.Where(c => c % 2 == 0).Count();
+
+//Console.WriteLine($"Suda: {countEven} , Licha: {countOdd}");
+
+
+//  4.  vypište čísla v poli numbers jako slova
+var numbers2 = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+var strings = new[] { "zero", "one", "two", "three", "four",
+    "five", "six", "seven", "eight", "nine" };
+
+var result = numbers2.Select(n => strings[n]);
 
 
 Console.WriteLine(string.Join(", ", result));
-
-
-
-
 
 //foreach (var item in result)
 //{
