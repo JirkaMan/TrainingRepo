@@ -1,13 +1,29 @@
 ﻿
 using Model;
+using Data;
+using System.Linq;
 
-Console.WriteLine("Hello, World!");
 
-FAResult fAResult = new FAResult
+string dirBooks= @"d:\Data\SkoleniICTpro\Books";
+
+var files = Directory.EnumerateFiles(dirBooks, "*.txt");
+
+foreach (var file in files)
 {
-    Source = "file",
-    SourceType = SourceType.FILE
-};
+    var result = FreqAnalysis.FreqAnalysisFromFile(file);
 
+    FileInfo fileInfo = new FileInfo(file); ;
+    Console.WriteLine(fileInfo.Name);
 
-Console.WriteLine(fAResult);
+    var orderedTopTen = result.OrderByDescending(kv => kv.Value).Take(10);
+
+    foreach (var item in orderedTopTen)
+    {
+
+        Console.WriteLine(item.Key + " : "+ item.Value);
+
+    }
+
+    Console.WriteLine();
+}
+

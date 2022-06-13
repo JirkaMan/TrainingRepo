@@ -6,14 +6,20 @@
         {
             Dictionary<string,int> result = new Dictionary<string,int>();
 
-            string[] separators = { ".", ",", " ", Environment.NewLine };
-            string[] parts = input.Split(separators,StringSplitOptions.RemoveEmptyEntries);
+            var parts = input.Replace("."," ")
+                             .Replace(","," ")
+                             .Replace(":"," ")
+                             .Replace("("," ")
+                             .Replace(")"," ")
+                             .Replace(Environment.NewLine," ")
+                             .Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
 
             foreach (string part in parts)
             {
                 if (result.ContainsKey(part))
                 {
-                    result[part] += result[part];
+                    result[part] += 1;
                 }
                 else
                 {
