@@ -18,9 +18,9 @@
         /// <summary>
         /// Vysledna frekvencni analyaza slov
         /// </summary>
-        public Dictionary<string, int> Words { get; set; }
+        public Dictionary<string, int> Words { get; set; } = new Dictionary<string, int>();
 
-        public override string ToString() => $"{Source} {Words?.Count}";    // zkrácený zápis přes lambdu
+        public override string ToString() => $"{Source} , pocet: {Words?.Count}";    // zkrácený zápis přes lambdu
 
     }
 
