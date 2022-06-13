@@ -20,10 +20,8 @@
         /// </summary>
         public Dictionary<string, int> Words { get; set; }
 
-        public override string ToString()
-        {
-            return $"{Source} {Words?.Count}";   //  Zápis stringu od .NET5
-        }
+        public override string ToString() => $"{Source} {Words?.Count}";    // zkrácený zápis přes lambdu
+
     }
 
     public enum SourceType
