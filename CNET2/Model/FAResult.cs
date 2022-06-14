@@ -25,7 +25,7 @@
         /// </summary>
         /// <returns></returns>
         public Dictionary<string, int> GetTopTen()
-            => (Dictionary<string,int>)Words.OrderByDescending(kv => kv.Value).Take(10);
+            => Words.OrderByDescending(kv => kv.Value).Take(10).ToDictionary(kv => kv.Key, kv => kv.Value);
 
         public override string ToString() => $"{Source} , pocet: {Words?.Count}";    // zkrácený zápis přes lambdu
 

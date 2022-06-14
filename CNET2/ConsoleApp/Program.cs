@@ -3,15 +3,17 @@ using Model;
 using Data;
 using System.Linq;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Start konzolovky!");
+
+TestInterface();
 
 
 
 //  Metoda spustí cvičení s LINQ
-LINQcviceni();
+//LINQcviceni();
 
 //  Spustení frekvencní analyzy slov v textovych souborech
-FreqWords();
+//FreqWords();
 
 static void FreqWords()
 {
@@ -106,4 +108,24 @@ static void LINQcviceni()
     //{
     //    Console.WriteLine(item);
     //}
+}
+
+static void TestInterface()
+{
+    Client client1 = new Client() { Name = "Petr" };
+    Client client2 = new Client() { Name = "Alena" };
+    VIPClient client3 = new VIPClient() { Name = "Monika", Status = "GOLD" };
+
+    List<IGreetable> clients = new List<IGreetable> { client1, client2, client3 };
+
+    foreach (IGreetable client in clients)
+    {
+        GreetClient(client);
+    }
+}
+
+/// Test pro Interface
+static void GreetClient(IGreetable client)
+{
+    Console.WriteLine(client.SayHello());
 }
