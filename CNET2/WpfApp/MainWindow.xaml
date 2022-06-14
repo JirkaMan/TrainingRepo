@@ -12,11 +12,13 @@
             <RowDefinition Height="100"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnLoadFiles" Content="Sekv." Grid.Row="0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="36" Click="btnLoadFiles_Click"/>
-        <Button x:Name="btnParallell" Content="Paralell" Grid.Row="0" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" FontSize="36" Click="btnParallell_Click"/>
-        <Button x:Name="btnParallellAsync" Content="Async" Grid.Row="0" HorizontalAlignment="Left" Margin="225,10,0,0" VerticalAlignment="Top" FontSize="36" Click="btnParallellAsync_Click"/>
-        <Button x:Name="btnWaitFirst" Content="Task first" Grid.Row="0" HorizontalAlignment="Left" Margin="330,10,0,0" VerticalAlignment="Top" FontSize="36" Click="btnWaitFirst_Click"/>
-        <Button x:Name="btnWaitAll" Content="Task all" Grid.Row="0" HorizontalAlignment="Left" Margin="480,10,0,0" VerticalAlignment="Top" FontSize="36" Click="btnWaitAll_Click"/>
+        <Button x:Name="btnLoadFiles" Content="Sekv." Grid.Row="0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnLoadFiles_Click"/>
+        <Button x:Name="btnParallell" Content="Paralell" Grid.Row="0" HorizontalAlignment="Left" Margin="60,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnParallell_Click"/>
+        <Button x:Name="btnParallellAsync" Content="Async" Grid.Row="0" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnParallellAsync_Click"/>
+        <Button x:Name="btnWaitFirst" Content="WaitAny" Grid.Row="0" HorizontalAlignment="Left" Margin="170,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnWaitFirst_Click"/>
+        <Button x:Name="btnWaitAll" Content="WaitAll" Grid.Row="0" HorizontalAlignment="Left" Margin="240,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnWaitAll_Click"/>
+        <Button x:Name="btnWhenAny" Content="WhenAny" Grid.Row="0" HorizontalAlignment="Left" Margin="300,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnWhenAny_Click"/>
+        <Button x:Name="btnWhenAll" Content="WhenAll" Grid.Row="0" HorizontalAlignment="Left" Margin="380,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnWhenAll_Click"/>
         <ScrollViewer HorizontalAlignment="Stretch" 
                       Margin="5,0,5,5" Grid.Row="1">
             <TextBlock x:Name="txbInfo"  TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Stretch" FontSize="24"/>
