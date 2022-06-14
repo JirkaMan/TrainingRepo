@@ -19,6 +19,7 @@
         <Button x:Name="btnWaitAll" Content="WaitAll" Grid.Row="0" HorizontalAlignment="Left" Margin="240,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnWaitAll_Click"/>
         <Button x:Name="btnWhenAny" Content="WhenAny" Grid.Row="0" HorizontalAlignment="Left" Margin="300,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnWhenAny_Click"/>
         <Button x:Name="btnWhenAll" Content="WhenAll" Grid.Row="0" HorizontalAlignment="Left" Margin="380,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnWhenAll_Click"/>
+        <Button x:Name="btnWhenAllProgBar" Content="WhenAllPB" Grid.Row="0" HorizontalAlignment="Left" Margin="450,10,0,0" VerticalAlignment="Top" FontSize="16" Click="btnWhenAllProgBar_Click"/>
         <ScrollViewer HorizontalAlignment="Stretch" 
                       Margin="5,0,5,5" Grid.Row="1">
             <TextBlock x:Name="txbInfo"  TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Stretch" FontSize="24"/>

@@ -216,10 +216,50 @@ namespace WpfApp
             var t2 = Task.Run(() => WebLoad.LoadUrl(url2));
             var t3 = Task.Run(() => WebLoad.LoadUrl(url3));
 
+            //  Datový typ tuple , šlo by navést do VAR
             (int?,string,bool)[] results = await Task.WhenAll(t1, t2, t3);
 
             stopwatch.Stop();
             txbInfo.Text += $"Weby jsou dlouhé: {string.Join(", ", results)}";
+            txbInfo.Text += $"{Environment.NewLine}Elapsed miliseconds: {stopwatch.ElapsedMilliseconds}";
+            Mouse.OverrideCursor = null;
+        }
+
+        private async void btnWhenAllProgBar_Click(object sender, RoutedEventArgs e)
+        {
+            pb_Progress.Value = 0;
+            txbInfo.Text = "";
+            Mouse.OverrideCursor = Cursors.Wait;
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            // IProgress spojí vlákna aby bylo možné přistoupit ke GUI
+            IProgress<string> progress = new Progress<string>(message =>
+            {
+                //txbInfo.Text += message;
+                pb_Progress.Value++;
+            });
+
+            string[] urls = { "https://sezhhhnam.cz" , 
+                "https://seznamzpravy.cz" , 
+                "https://www.ictpro.cz/" ,
+                "https://google.com",
+                "https://novinky.cz",
+                "https://bbc.co.uk/"};
+
+            List<Task<(int?, string, bool)>> tasks = new List<Task<(int?, string, bool)>>();
+            pb_Progress.Maximum = urls.Length - 1;
+
+            foreach (string url in urls)
+            {
+                tasks.Add(Task.Run(() => WebLoad.LoadUrl(url, progress)));
+            }
+
+            //  Datový typ tuple , šlo by navést do VAR
+            (int?, string, bool)[] results = await Task.WhenAll(tasks);
+
+            stopwatch.Stop();
+                            
+            txbInfo.Text += $"Weby jsou dlouhé:{Environment.NewLine}{string.Join($", {Environment.NewLine}", results)}";
             txbInfo.Text += $"{Environment.NewLine}Elapsed miliseconds: {stopwatch.ElapsedMilliseconds}";
             Mouse.OverrideCursor = null;
         }
