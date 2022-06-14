@@ -14,10 +14,12 @@
         </Grid.RowDefinitions>
         <Button x:Name="btnLoadFiles" Content="Sekv." Grid.Row="0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="36" Click="btnLoadFiles_Click"/>
         <Button x:Name="btnParallell" Content="Paralell" Grid.Row="0" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" FontSize="36" Click="btnParallell_Click"/>
+        <Button x:Name="btnParallellAsync" Content="Async" Grid.Row="0" HorizontalAlignment="Left" Margin="225,10,0,0" VerticalAlignment="Top" FontSize="36" Click="btnParallellAsync_Click"/>
         <ScrollViewer HorizontalAlignment="Stretch" 
                       Margin="5,0,5,5" Grid.Row="1">
             <TextBlock x:Name="txbInfo"  TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Stretch" FontSize="24"/>
         </ScrollViewer>
+        <ProgressBar x:Name="pb_Progress" HorizontalAlignment="Center" Height="23" Margin="0,67,0,0" VerticalAlignment="Top" Width="780"/>
 
     </Grid>
 </Window>
