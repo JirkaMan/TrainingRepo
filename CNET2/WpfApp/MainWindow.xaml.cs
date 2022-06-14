@@ -54,5 +54,43 @@ namespace WpfApp
             Mouse.OverrideCursor = null;
 
         }
+
+        private void btnParallell_Click(object sender, RoutedEventArgs e)
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            txbInfo.Text = "";
+            var files = Directory.EnumerateFiles(@"d:\Data\SkoleniICTpro\BigFiles", "*.txt");
+
+            // Progress spojí vlákna aby bylo možné přistoupit ke GUI
+            IProgress<string> progress = new Progress<string>(message =>
+            {
+                txbInfo.Text += message;
+            });
+
+            Parallel.ForEach(files, file =>
+            {
+                var result = FreqAnalysis.FreqAnalysisFromFile(file);
+
+                string message = "";
+                progress.Report(message);
+
+                message += result.Source + Environment.NewLine;
+
+                foreach (var word in result.GetTopTen())
+                {
+                    message += $"{word.Key} : {word.Value} {Environment.NewLine}";
+                }
+
+                message+=Environment.NewLine;
+                
+                progress.Report(message);
+            });
+
+            stopwatch.Stop();
+            progress.Report($"{Environment.NewLine}Elapsed miliseconds: {stopwatch.ElapsedMilliseconds}");
+            Mouse.OverrideCursor = null;
+        }
     }
 }
