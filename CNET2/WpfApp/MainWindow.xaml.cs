@@ -179,14 +179,49 @@ namespace WpfApp
             Mouse.OverrideCursor = null;
         }
 
-        private void btnWhenAny_Click(object sender, RoutedEventArgs e)
+        private async void btnWhenAny_Click(object sender, RoutedEventArgs e)
         {
+            txbInfo.Text = "";
+            Mouse.OverrideCursor = Cursors.Wait;
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
+            string url1 = "https://seznam.cz";
+            string url2 = "https://seznamzpravy.cz";
+            string url3 = "https://www.ictpro.cz/";
+
+            var t1 = Task.Run(() => WebLoad.LoadUrl(url1));
+            var t2 = Task.Run(() => WebLoad.LoadUrl(url2));
+            var t3 = Task.Run(() => WebLoad.LoadUrl(url3));
+
+            var firstDone = await Task.WhenAny(t1, t2, t3);
+
+            stopwatch.Stop();
+            txbInfo.Text += $"Doběhl první task {Environment.NewLine}";
+            txbInfo.Text += $"Web length je {firstDone.Result}";
+            txbInfo.Text += $"{Environment.NewLine}Elapsed miliseconds: {stopwatch.ElapsedMilliseconds}";
+            Mouse.OverrideCursor = null;
         }
 
-        private void btnWhenAll_Click(object sender, RoutedEventArgs e)
+        private async void btnWhenAll_Click(object sender, RoutedEventArgs e)
         {
+            txbInfo.Text = "";
+            Mouse.OverrideCursor = Cursors.Wait;
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
+            string url1 = "https://sezhhhnam.cz";
+            string url2 = "https://seznamzpravy.cz";
+            string url3 = "https://www.ictpro.cz/";
+
+            var t1 = Task.Run(() => WebLoad.LoadUrl(url1));
+            var t2 = Task.Run(() => WebLoad.LoadUrl(url2));
+            var t3 = Task.Run(() => WebLoad.LoadUrl(url3));
+
+            int[] results = await Task.WhenAll(t1, t2, t3);
+
+            stopwatch.Stop();
+            txbInfo.Text += $"Weby jsou dlouhé: {string.Join(", ", results)}";
+            txbInfo.Text += $"{Environment.NewLine}Elapsed miliseconds: {stopwatch.ElapsedMilliseconds}";
+            Mouse.OverrideCursor = null;
         }
     }
 }
