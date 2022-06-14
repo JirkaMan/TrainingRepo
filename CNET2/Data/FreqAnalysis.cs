@@ -8,14 +8,7 @@ namespace Data
         {
             Dictionary<string,int> result = new Dictionary<string,int>();
 
-            var parts = input.Replace("."," ")
-                             .Replace(","," ")
-                             .Replace(":"," ")
-                             .Replace("("," ")
-                             .Replace(")"," ")
-                             .Replace(Environment.NewLine," ")
-                             .Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-
+            var parts = input.Split(Environment.NewLine);
 
             foreach (string part in parts)
             {
