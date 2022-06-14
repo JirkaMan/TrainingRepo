@@ -5,25 +5,13 @@ using System.Linq;
 
 Console.WriteLine("Hello, World!");
 
-//LINQcviceni();
 
 
+//  Metoda spustí cvičení s LINQ
+LINQcviceni();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//FreqWords();
+//  Spustení frekvencní analyzy slov v textovych souborech
+FreqWords();
 
 static void FreqWords()
 {
@@ -50,6 +38,7 @@ static void FreqWords()
         Console.WriteLine();
     }
 }
+
 
 static void LINQcviceni()
 {
