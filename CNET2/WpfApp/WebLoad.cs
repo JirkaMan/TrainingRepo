@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -10,7 +11,7 @@ namespace WpfApp
 {
     public static class WebLoad
     {
-        public static int LoadUrl(string url)
+        public static (int? WebLength,string Url,bool Succes) LoadUrl(string url)
         {
             try
             {
@@ -18,13 +19,13 @@ namespace WpfApp
 
                 var content = httpClient.GetStringAsync(url).Result;
 
-                return content.Length;
+                return (content.Length, url,true);
             }
             catch (Exception ex)
             {
                 File.AppendAllText("errors.txt",
-                    $"{DateTime.Now} : {ex.Message}{Environment.NewLine}");
-                return -1;
+                    $"URL: {url} - {DateTime.Now} : {ex.Message}{Environment.NewLine}");
+                return (null,url,false);
             }
         }
     }
