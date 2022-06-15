@@ -12,62 +12,7 @@ var dataSet = Data.Serialization.LoadFromXML(@"d:\Data\SkoleniICTpro\PersonDatas
 
 Console.WriteLine(dataSet.Count);
 
-//  kolik lidí má smlouvu
-var result = dataSet.Where(p => p.Contracts.Any()).Count();
-Console.WriteLine(result);
-
-//  Kolik lidi bydli v Brně
-var result2 = dataSet.Where(p => p.HomeAddress.City.ToLower().Contains("brno")).Count();
-
-// Vypsat lidi z Brna
-var result3 = dataSet.Where(p => p.HomeAddress.City.ToLower()=="brno").ToList();
-
-foreach (var person in result3)
-{
-    Console.WriteLine(person);
-}
-
-//  nejstarsi a nejmladsi klient a vypsat jmeno a vek
-var result4 = dataSet.OrderBy(p => p.DateOfBirth);
-var youngest = result4.Last();
-var oldest = result4.First();
-
-Console.WriteLine($"Nejmladší: {youngest} ({youngest.Age()})");
-Console.WriteLine($"Nejstarší: {oldest} ({oldest.Age()})");
-
-
-//  Použití anonymního typu
-var result5 = dataSet.Select(p => new { p.FullName, p.DateOfBirth });
-
-// Alternativa s přiřazením metody do vlastnostim anonymního typu
-var result6 = dataSet.Select(p => new { p.FullName, Age = p.Age() });
-
-//  Použití s TUPLE
-var result7 = dataSet.Select(p => (Name: p.FullName, Age: p.Age()));
-
-foreach (var item in result5)
-{
-    Console.WriteLine(item.FullName + " - Datum narození: " + item.DateOfBirth.ToString("dd.MM.yyyy"));
-}
-
-//  GROUP BY
-//  GROUPBY není key jako kolekce klíčů ale je to vlastnost kolekce!
-var result8 = dataSet.GroupBy(p => p.HomeAddress.City);
-
-foreach (var item in result8)
-{
-    Console.WriteLine($"Město: {item.Key}, počet lidí: {item.Count()}");
-}
-
-foreach (var item in result8)
-{
-    Console.WriteLine($"Město: {item.Key}, počet lidí: {item.Count()} :");
-    foreach (var item2 in item)
-    {
-        Console.WriteLine(item2.FullName);
-    }
-}
-
+LINQCviceniPokrocile(dataSet);
 
 Console.ReadLine();
 
@@ -77,6 +22,7 @@ Console.ReadLine();
 
 //  Spustení frekvencní analyzy slov v textovych souborech
 //FreqWords();
+
 
 static void FreqWords()
 {
@@ -190,4 +136,75 @@ static void TestInterface()
 static void GreetClient(IGreetable client)
 {
     Console.WriteLine(client.SayHello());
+}
+
+static void LINQCviceniPokrocile(List<Person> dataSet)
+{
+    //  kolik lidí má smlouvu
+    var result = dataSet.Where(p => p.Contracts.Any()).Count();
+    Console.WriteLine(result);
+
+    //  Kolik lidi bydli v Brně
+    var result2 = dataSet.Where(p => p.HomeAddress.City.ToLower().Contains("brno")).Count();
+
+    // Vypsat lidi z Brna
+    var result3 = dataSet.Where(p => p.HomeAddress.City.ToLower() == "brno").ToList();
+
+    foreach (var person in result3)
+    {
+        Console.WriteLine(person);
+    }
+
+    //  nejstarsi a nejmladsi klient a vypsat jmeno a vek
+    var result4 = dataSet.OrderBy(p => p.DateOfBirth);
+    var youngest = result4.Last();
+    var oldest = result4.First();
+
+    Console.WriteLine($"Nejmladší: {youngest} ({youngest.Age()})");
+    Console.WriteLine($"Nejstarší: {oldest} ({oldest.Age()})");
+
+
+    //  Použití anonymního typu
+    var result5 = dataSet.Select(p => new { p.FullName, p.DateOfBirth });
+
+    // Alternativa s přiřazením metody do vlastnostim anonymního typu
+    var result6 = dataSet.Select(p => new { p.FullName, Age = p.Age() });
+
+    //  Použití s TUPLE
+    var result7 = dataSet.Select(p => (Name: p.FullName, Age: p.Age()));
+
+    foreach (var item in result5)
+    {
+        Console.WriteLine(item.FullName + " - Datum narození: " + item.DateOfBirth.ToString("dd.MM.yyyy"));
+    }
+
+    //  GROUP BY
+    //  GROUPBY není key jako kolekce klíčů ale je to vlastnost kolekce! Tím pádem vznikne kolekce kolekcí kdy každá má klíč jako vlastnost
+    var result8 = dataSet.GroupBy(p => p.HomeAddress.City);
+
+    foreach (var item in result8)
+    {
+        Console.WriteLine($"Město: {item.Key}, počet lidí: {item.Count()}");
+    }
+
+    foreach (var item in result8)
+    {
+        Console.WriteLine($"Město: {item.Key}, počet lidí: {item.Count()} :");
+        foreach (var item2 in item)
+        {
+            Console.WriteLine(item2.FullName);
+        }
+    }
+
+    //  SELECT MANY
+    //  Vybere a sjednotí kolekce na kolekci do jedné, viz smlouvy do jednorozměrné kolekce
+    var result9 = dataSet.SelectMany(p => p.Contracts);
+    Console.WriteLine($"Počet smluv celkem: {result9.Count()}");
+
+    //  Zjistit kdo naposledy uzavřel smlouvu
+    //  musim ziskat osobu
+    var withContract = dataSet.Where(p => p.Contracts.Any());
+    var result11 = withContract.OrderByDescending(p => p.Contracts.OrderByDescending(c => c.Signed).First().Signed).First();
+
+    Console.WriteLine($"{Environment.NewLine}Poslední smlouvu podepsal: {result11.FullName}");
 }
