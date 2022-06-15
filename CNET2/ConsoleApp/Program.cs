@@ -12,16 +12,27 @@ var dataSet = Data.Serialization.LoadFromXML(@"d:\Data\SkoleniICTpro\PersonDatas
 
 Console.WriteLine(dataSet.Count);
 
-LINQCviceniPokrocile(dataSet);
+//  using aby se db spojení zavřelo
+using var db = new PeopleContext();
+
+db.Persons.AddRange(dataSet);
+db.SaveChanges();
+
+Console.WriteLine("OK");
 
 Console.ReadLine();
+
+//  Spustení frekvencní analyzy slov v textovych souborech
+//FreqWords();
+
 
 //TestInterface();
 
 //LINQcviceni();
 
-//  Spustení frekvencní analyzy slov v textovych souborech
-//FreqWords();
+//LINQCviceniPokrocile(dataSet);
+
+
 
 
 static void FreqWords()
