@@ -8,6 +8,53 @@ Console.WriteLine("Start konzolovky!");
 //  Nově lze místo datového typu DateTime používat TimeOnly nebo DateOnly 
 DateOnly dateNow = DateOnly.FromDateTime(DateTime.Now);
 
+var dataSet = Data.Serialization.LoadFromXML(@"d:\Data\SkoleniICTpro\PersonDataset\dataset.xml");
+
+Console.WriteLine(dataSet.Count);
+
+//  kolik lidí má smlouvu
+var result = dataSet.Where(p => p.Contracts.Any()).Count();
+Console.WriteLine(result);
+
+//  Kolik lidi bydli v Brně
+var result2 = dataSet.Where(p => p.HomeAddress.City.ToLower().Contains("brno")).Count();
+
+// Vypsat lidi z Brna
+var result3 = dataSet.Where(p => p.HomeAddress.City.ToLower()=="brno").ToList();
+
+foreach (var person in result3)
+{
+    Console.WriteLine(person);
+}
+
+//  nejstarsi a nejmladsi klient a vypsat jmeno a vek
+var result4 = dataSet.OrderBy(p => p.DateOfBirth);
+var youngest = result4.Last();
+var oldest = result4.First();
+
+Console.WriteLine($"Nejmladší: {youngest} ({youngest.Age()})");
+Console.WriteLine($"Nejstarší: {oldest} ({oldest.Age()})");
+
+
+//  Použití anonymního typu
+var result5 = dataSet.Select(p => new { p.FullName, p.DateOfBirth });
+
+// Alternativa s přiřazením metody do vlastnostim anonymního typu
+var result6 = dataSet.Select(p => new { p.FullName, Age = p.Age() });
+
+//  Použití s TUPLE
+var result7 = dataSet.Select(p => (Name: p.FullName, Age: p.Age()));
+
+
+foreach (var item in result5)
+{
+    Console.WriteLine(item.FullName + " - Datum narození: " + item.DateOfBirth.ToString("dd.MM.yyyy"));
+}
+
+
+
+Console.ReadLine();
+
 //TestInterface();
 
 //LINQcviceni();
