@@ -45,12 +45,28 @@ var result6 = dataSet.Select(p => new { p.FullName, Age = p.Age() });
 //  Použití s TUPLE
 var result7 = dataSet.Select(p => (Name: p.FullName, Age: p.Age()));
 
-
 foreach (var item in result5)
 {
     Console.WriteLine(item.FullName + " - Datum narození: " + item.DateOfBirth.ToString("dd.MM.yyyy"));
 }
 
+//  GROUP BY
+//  GROUPBY není key jako kolekce klíčů ale je to vlastnost kolekce!
+var result8 = dataSet.GroupBy(p => p.HomeAddress.City);
+
+foreach (var item in result8)
+{
+    Console.WriteLine($"Město: {item.Key}, počet lidí: {item.Count()}");
+}
+
+foreach (var item in result8)
+{
+    Console.WriteLine($"Město: {item.Key}, počet lidí: {item.Count()} :");
+    foreach (var item2 in item)
+    {
+        Console.WriteLine(item2.FullName);
+    }
+}
 
 
 Console.ReadLine();
