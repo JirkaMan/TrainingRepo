@@ -5,11 +5,11 @@ using System.Linq;
 
 Console.WriteLine("Start konzolovky!");
 
-TestInterface();
+//  Nově lze místo datového typu DateTime používat TimeOnly nebo DateOnly 
+DateOnly dateNow = DateOnly.FromDateTime(DateTime.Now);
 
+//TestInterface();
 
-
-//  Metoda spustí cvičení s LINQ
 //LINQcviceni();
 
 //  Spustení frekvencní analyzy slov v textovych souborech
@@ -40,7 +40,6 @@ static void FreqWords()
         Console.WriteLine();
     }
 }
-
 
 static void LINQcviceni()
 {
