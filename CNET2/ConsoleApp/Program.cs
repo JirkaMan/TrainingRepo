@@ -15,7 +15,8 @@ Console.WriteLine(dataSet.Count);
 //  using aby se db spojení zavřelo
 using var db = new PeopleContext();
 
-db.Persons.AddRange(dataSet);
+//  Naplnění databáze
+//db.Persons.AddRange(dataSet);
 db.SaveChanges();
 
 Console.WriteLine("OK");
