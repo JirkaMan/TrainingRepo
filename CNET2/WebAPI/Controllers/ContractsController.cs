@@ -9,6 +9,12 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ContractsController : ControllerBase
     {
+        private readonly PeopleContext _db;
+        public ContractsController(PeopleContext db)
+        {
+            _db = db;
+        }
+
         [HttpGet("GetAllContracts")]
         public IEnumerable<Contract> GetContracts()
         {
