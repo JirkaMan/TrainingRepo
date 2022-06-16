@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
+    //  Index se používá tam kde se podle property vyhledává (zrychlení)
+    [Index(nameof(Email))]
     public class Person
     {
         #region konstruktory
@@ -24,8 +23,11 @@ namespace Model
         #region vlastnosti
 
         public int Id { get; set; }
+
+        [MaxLength(250)]    //Datová anotace, omezení délky stringu
         public string FirstName { get; set; } = "John";
 
+        [MaxLength(250)]
         public string LastName { get; set; } = "Doe";
 
         public string FullName
@@ -39,6 +41,9 @@ namespace Model
         public DateTime DateOfBirth { get; set; }
 
         public Address HomeAddress { get; set; } = new Address();
+
+        [MaxLength(270)]
+        [Required]  // Povinný údaj
         public string Email { get; set; }
 
         public List<Contract> Contracts { get; set; }

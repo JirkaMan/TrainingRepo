@@ -20,6 +20,7 @@ using var db = new PeopleContext();
 //db.Persons.AddRange(dataSet);
 //var contracts = db.Contracts;
 
+
 //// Naplnění Company do contracts
 //int i = 0;
 //foreach (var contract in contracts)
