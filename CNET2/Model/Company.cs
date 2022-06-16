@@ -6,18 +6,11 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class Contract
+    public class Company
     {
+        [System.ComponentModel.DataAnnotations.Key]
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public string Number { get; set; }
-
-        public DateTime Signed { get; set; }
-
-        public bool IsActive { get; set; }
-
-        public Company? Company { get; set; }
+        public Address? Address { get; set; }
     }
-
 }

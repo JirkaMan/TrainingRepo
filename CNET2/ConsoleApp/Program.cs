@@ -2,6 +2,7 @@
 using Model;
 using Data;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 Console.WriteLine("Start konzolovky!");
 
@@ -17,7 +18,20 @@ using var db = new PeopleContext();
 
 //  Naplnění databáze
 //db.Persons.AddRange(dataSet);
+var contracts = db.Contracts;
+
+// Naplnění Company do contracts
+int i = 0;
+foreach (var contract in contracts)
+{
+    var comp = new Company() { Name = $"Test Company {i++}" };
+    contract.Company = comp;
+}
+
+
+
 db.SaveChanges();
+
 
 Console.WriteLine("OK");
 

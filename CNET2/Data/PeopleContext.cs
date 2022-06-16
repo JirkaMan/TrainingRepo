@@ -14,6 +14,7 @@ namespace Data
         public DbSet<Person> Persons { get; set; }
         public DbSet<Address> Adresses { get; set; }
         public DbSet<Contract> Contracts { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
         public override EntityEntry Add(object entity)
         {
@@ -22,7 +23,7 @@ namespace Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=PeopleDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=PeopleDb2;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
     }
