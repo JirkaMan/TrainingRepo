@@ -17,4 +17,5 @@ namespace Model
 
         public bool IsActive { get; set; }
     }
+
 }
