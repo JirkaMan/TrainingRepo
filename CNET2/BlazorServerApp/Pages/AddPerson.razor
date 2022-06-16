@@ -1,6 +1,54 @@
 ﻿@page "/add"
-<h3>AddPerson</h3>
+@inject PeopleContext db
+@using Model
+
+<h3>Add or update person</h3>
+
+<div class="mb-3">
+  <label for="firstname" class="form-label">Jméno</label>
+  <input @bind-value=Person.FirstName type="text" class="form-control" id="firstname" placeholder="Jméno">
+</div>
+
+<div class="mb-3">
+  <label for="lastname" class="form-label">Příjmení</label>
+  <input @bind-value=Person.LastName type="text" class="form-control" id="lastname" placeholder="Příjmení">
+</div>
+
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email</label>
+  <input @bind-value=Person.Email type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+</div>
+
+<div>@message</div>
+<button class="btn btn-primary" @onclick=Save>Ulož nebo uprav</button>
 
 @code {
+
+	public Person Person { get; set; } = new Person();
+
+	private string message;
+
+	void Save()
+	{
+		if (Person.Email != null)
+		{
+			if (Person.Id > 0)
+			{
+				//	edituji
+				message = $"Osoba byla aktualizována. ID: {Person.Id} - {DateTime.Now}";
+			}
+			else
+			{
+				Person.HomeAddress = new Address() { City = "", Street = "" };
+				db.Persons.Add(Person);
+				message = $"Osoba byla přidána. ID: {Person.Id} - {DateTime.Now}";
+			}
+		}
+		else
+			message = "Email nesmí být prázdný!";
+
+
+		db.SaveChanges();
+	}
 
 }

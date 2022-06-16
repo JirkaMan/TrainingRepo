@@ -1,6 +1,39 @@
-﻿@page "/detail"
+﻿@page "/detail/{Id:int}"
+@inject PeopleContext db
+@using Microsoft.EntityFrameworkCore
+@using Model
+
 <h3>PersonDetail</h3>
 
+@if (db.Persons.Any(p=>p.Id==Id))
+{
+	<span>Osoba Id: @Id </span>
+	<div>@Osoba.FullName</div>
+	<div>@Osoba.Email</div>
+	<div>@Osoba.HomeAddress.ToString()</div>
+	<div>Počet smluv: @Osoba?.Contracts.Count()</div>
+}
+else
+{
+	<span>Osoba Id: @Id v databázi neexistuje!</span>
+}
+
+
 @code {
+
+	[Parameter]
+	public int Id { get; set; }
+
+	public Person? Osoba { get; set; } 
+
+	protected override void OnInitialized()
+	{
+
+					Osoba = db.Persons.Include(p => p.HomeAddress)
+						.Include(p => p.Contracts)
+						.Where(p => p.Id == Id).FirstOrDefault();
+
+	}
+
 
 }
