@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model
 {
@@ -39,6 +40,16 @@ namespace Model
         }
 
         public DateTime DateOfBirth { get; set; }
+
+
+        //  Date only nebude v DB a vytváříme ji jen proto že dejme tomu potřebujeme získat v nějaké jiné komponentě hodnotu typu DateOnly, Je to taková virtuální vlastnost
+        [NotMapped]
+        public DateOnly DateOfBirthDateOnly
+        {
+            get => DateOnly.FromDateTime(DateOfBirth);  //  Získám DateOnly z data narození který je typu DateTime
+            private set => DateOfBirth = value.ToDateTime(new TimeOnly(0)); //  nastavím Datum narození pro DateOfBirth tak aby se to zapsalo na vlastnost DateOfBirth 
+        }
+
 
         public Address HomeAddress { get; set; } = new Address();
 
