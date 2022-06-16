@@ -18,16 +18,28 @@ using var db = new PeopleContext();
 
 //  Naplnění databáze
 //db.Persons.AddRange(dataSet);
-var contracts = db.Contracts;
+//var contracts = db.Contracts;
 
-// Naplnění Company do contracts
-int i = 0;
-foreach (var contract in contracts)
-{
-    var comp = new Company() { Name = $"Test Company {i++}" };
-    contract.Company = comp;
-}
+//// Naplnění Company do contracts
+//int i = 0;
+//foreach (var contract in contracts)
+//{
+//    var comp = new Company() { Name = $"Test Company {i++}" };
+//    contract.Company = comp;
+//}
 
+
+//  Odebrání company z databáze
+var contract = db.Contracts.Include(x=>x.Company).First();
+var company = contract.Company;
+
+Console.WriteLine($"contract-company: {company.Name}");
+
+//  Odebrat vazbu
+contract.Company = null;
+
+//  odebrat z databáze
+db.Companies.Remove(company);
 
 
 db.SaveChanges();
